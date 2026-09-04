@@ -1,7 +1,7 @@
 from alchemy.potions import healing_potion, strength_potion
 
 
-def main():
+def main() -> None:
     print("=== Distillation 0 ===")
     print("Direct access to alchemy/potions.py")
     print(f"Testing strength_potion: {healing_potion()}")
