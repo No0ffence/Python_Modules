@@ -5,7 +5,7 @@ def main() -> None:
     ing = 'Earth wind fire'
 
     try:
-        from grimoire import dark_spellbook
+        from alchemy.grimoire import dark_spellbook
         print(
             f"Testing record light spell: "
             f"{dark_spellbook.dark_spell_record('Fantasy', ing)}")
