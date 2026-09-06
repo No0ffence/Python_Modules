@@ -1,4 +1,4 @@
-import alchemy.grimoire
+import alchemy.grimoire as a
 
 
 def main() -> None:
@@ -7,7 +7,7 @@ def main() -> None:
     ing = 'Earth wind fire'
     print(
         f"Testing record light spell: "
-        f"{alchemy.grimoire.light_spell_record('Fantasy', ing)}")
+        f"{a.light_spellbook.light_spell_record('Fantasy', ing)}")
 
 
 main()
