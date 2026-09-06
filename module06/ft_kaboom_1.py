@@ -10,7 +10,7 @@ def main() -> None:
             f"Testing record light spell: "
             f"{dark_spellbook.dark_spell_record('Fantasy', ing)}")
     except ImportError as e:
-        print(e)
+        raise e
 
 
 main()
