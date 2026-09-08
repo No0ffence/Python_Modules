@@ -22,6 +22,19 @@ def check_config() -> None:
                               f"please provide it in .env file")
 
 
+def which_mode() -> None:
+    if os.getenv("MATRIX_MODE") == "development":
+        print("""
+Running in DEVELOPMENT mode
+Debug features: ON""")
+    elif os.getenv("MATRIX_MODE") == "production":
+        print("""
+Running in PRODUCTION mode
+Debug features: OFF""")
+    else:
+        print("There is no  correct mode provided")
+
+
 def main() -> None:
     print("ORACLE STATUS: Reading the Matrix...")
     try:
@@ -37,6 +50,7 @@ def main() -> None:
     print(f"Log Level: {os.getenv('LOG_LEVEL')}")
     print(f"Zion Network: {os.getenv('ZION_ENDPOINT')}")
 
+    which_mode()
     print("""
 Environment security check:
 [OK] No hardcoded secrets detected
