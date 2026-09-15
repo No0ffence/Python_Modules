@@ -12,7 +12,7 @@ class SpaceStation(BaseModel):
     is_operational: bool = Field(default=True)
     notes: str | None = Field(default=None, max_length=200)
 
-    def show(self):
+    def show(self) -> None:
         print("Valid station created:")
         print(f"ID: {self.station_id}")
         print(f"Name: {self.name}")
@@ -25,7 +25,7 @@ class SpaceStation(BaseModel):
             print("Status: Not operational")
 
 
-def main():
+def main() -> None:
     station1 = SpaceStation(station_id="ISS001",
                             name="International Space Station",
                             crew_size=6,
@@ -48,6 +48,7 @@ Expected validation error:""")
                                 power_level=85.5,
                                 oxygen_level=92.3,
                                 last_maintenance=datetime.now())
+        station2.show()
     except ValueError as e:
         print(e)
 
