@@ -1,5 +1,6 @@
 from datetime import datetime
 from enum import Enum
+
 from pydantic import BaseModel, Field, model_validator
 
 
@@ -32,9 +33,71 @@ class SpaceMission(BaseModel):
     budget_millions: float = Field(ge=1.0, le=10000.0)
 
     @model_validator(mode="after")
-    def validate_mission(self) -> SpaceMission:
+    def validate_mission(self) -> "SpaceMission":
         if not self.mission_id.startswith("M"):
             raise ValueError('Mission ID must start with "M"')
         if Rank.captain not in self.crew or Rank.commander not in self.crew:
             raise ValueError("Must have at least one Commander or Captain")
+        if self.duration_days > 365:
+            experienced = len([i for i in self.crew if i.years_experience > 5])
+            if experienced / len(self.crew) < 0.5:
+                raise ValueError(
+                    "Long missions (> 365 days) "
+                    "need 50% experienced crew (5+ years)")
+        for memb in self.crew:
+            if not memb.is_active:
+                raise ValueError("All crew members must be active")
         return self
+
+
+def main():
+    print("""
+Space Mission Crew Validation
+=========================================""")
+
+    print("Valid mission created:")
+
+    memb1 = CrewMember(
+        member_id="lox",
+        name="Navonial",
+        rank=Rank.cadet,
+        age=19,
+        specialization="Glavnya po prisutstviu",
+        years_experience=1,
+        is_active=True
+    )
+    memb2 = CrewMember(
+        member_id="Popusk",
+        name="Ivan",
+        rank=Rank.captain,
+        age=33,
+        specialization="Smotriashij",
+        years_experience=7,
+        is_active=True
+    )
+    memb3 = CrewMember(
+        member_id="Korzura",
+        name="Dima",
+        rank=Rank.lieutenant,
+        age=29,
+        specialization="Glavnyj po hiptrastam",
+        years_experience=5,
+        is_active=True
+    )
+    crew = [memb1, memb2, memb3]
+
+    good_mission = SpaceMission(
+        mission_id="Lukashenko pidor",
+        mission_name="Zahvat usotago",
+        destination="Residence of Lukashenko",
+        launch_date=datetime.now(),
+        duration_days=25,
+        crew=crew,
+        budget_millions=10000
+    )
+    # todo
+    # good_mission.show()
+
+
+if __name__ == "__main__":
+    main()

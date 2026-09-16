@@ -36,7 +36,7 @@ class AlienContact(BaseModel):
             print("Message: not received")
 
     @model_validator(mode="after")
-    def validate_model(self) -> AlienContact:
+    def validate_model(self) -> "AlienContact":
         if not self.contact_id.startswith("AC"):
             raise ValueError('Contact ID must start with "AC" (Alien Contact)')
         if not self.is_verified:
