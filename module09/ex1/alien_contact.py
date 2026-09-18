@@ -23,7 +23,6 @@ class AlienContact(BaseModel):
     is_verified: bool = Field(default=False)
 
     def show(self) -> None:
-        print("Valid contact report:")
         print(f"ID: {self.contact_id}")
         print(f"Type: {self.contact_type}")
         print(f"Location: {self.location}")
@@ -64,6 +63,7 @@ def main() -> None:
     print("""
 Alien Contact Log Validation
 ======================================""")
+    print("Valid contact report:")
     alien1.show()
 
     print("""

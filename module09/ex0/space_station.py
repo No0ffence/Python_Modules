@@ -13,7 +13,6 @@ class SpaceStation(BaseModel):
     notes: str | None = Field(default=None, max_length=200)
 
     def show(self) -> None:
-        print("Valid station created:")
         print(f"ID: {self.station_id}")
         print(f"Name: {self.name}")
         print(f"Crew: {self.crew_size} people")
@@ -36,6 +35,7 @@ def main() -> None:
     print("""
 Space Station Data Validation
 ========================================""")
+    print("Valid station created:")
     station1.show()
 
     print("""

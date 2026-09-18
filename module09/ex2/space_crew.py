@@ -36,7 +36,9 @@ class SpaceMission(BaseModel):
     def validate_mission(self) -> "SpaceMission":
         if not self.mission_id.startswith("M"):
             raise ValueError('Mission ID must start with "M"')
-        if Rank.captain not in self.crew or Rank.commander not in self.crew:
+        if (Rank.captain not in [r.rank for r in self.crew]
+                and
+                Rank.commander not in [r.rank for r in self.crew]):
             raise ValueError("Must have at least one Commander or Captain")
         if self.duration_days > 365:
             experienced = len([i for i in self.crew if i.years_experience > 5])
@@ -49,8 +51,19 @@ class SpaceMission(BaseModel):
                 raise ValueError("All crew members must be active")
         return self
 
+    def show(self) -> None:
+        print(f"Mission: {self.mission_name}")
+        print(f"ID: {self.mission_id}")
+        print(f"Destination: {self.destination}")
+        print(f"Duration: {self.duration_days} days")
+        print(f"Budget: ${self.budget_millions}M    ")
+        print(f"Crew size: {len(self.crew)}")
+        print("Crew members:")
+        for m in self.crew:
+            print(f" - {m.name} ({m.rank}) - {m.specialization}")
 
-def main():
+
+def main() -> None:
     print("""
 Space Mission Crew Validation
 =========================================""")
@@ -87,7 +100,7 @@ Space Mission Crew Validation
     crew = [memb1, memb2, memb3]
 
     good_mission = SpaceMission(
-        mission_id="Lukashenko pidor",
+        mission_id="MukashenkoPidor",
         mission_name="Zahvat usotago",
         destination="Residence of Lukashenko",
         launch_date=datetime.now(),
@@ -95,8 +108,25 @@ Space Mission Crew Validation
         crew=crew,
         budget_millions=10000
     )
-    # todo
-    # good_mission.show()
+    good_mission.show()
+
+    print("""
+=========================================
+Expected validation error:
+""")
+    try:
+        bad_mission = SpaceMission(
+            mission_id="MukashenkoPidor",
+            mission_name="Zahvat usotago",
+            destination="Residence of Lukashenko",
+            launch_date=datetime.now(),
+            duration_days=25,
+            crew=crew[:1],
+            budget_millions=10000
+        )
+        bad_mission.show()
+    except ValueError as e:
+        print(e)
 
 
 if __name__ == "__main__":
