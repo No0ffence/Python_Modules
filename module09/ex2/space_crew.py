@@ -41,7 +41,8 @@ class SpaceMission(BaseModel):
                 Rank.commander not in [r.rank for r in self.crew]):
             raise ValueError("Must have at least one Commander or Captain")
         if self.duration_days > 365:
-            experienced = len([i for i in self.crew if i.years_experience > 5])
+            experienced = len(
+                [i for i in self.crew if i.years_experience >= 5])
             if experienced / len(self.crew) < 0.5:
                 raise ValueError(
                     "Long missions (> 365 days) "
