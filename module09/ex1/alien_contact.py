@@ -38,9 +38,9 @@ class AlienContact(BaseModel):
     def validate_model(self) -> "AlienContact":
         if not self.contact_id.startswith("AC"):
             raise ValueError('Contact ID must start with "AC" (Alien Contact)')
-        if not self.is_verified:
+        if self.contact_type == ContactType.physical and not self.is_verified:
             raise ValueError('Physical contact reports must be verified')
-        if self.witness_count < 3:
+        if self.contact_type == ContactType.telepathic and self.witness_count < 3:
             raise ValueError(
                 "Telepathic contact requires at least 3 witnesses")
         if self.signal_strength > 7 and not self.message_received:
@@ -71,7 +71,7 @@ Alien Contact Log Validation
 Expected validation error:""")
     try:
         alien2 = AlienContact(contact_id="AC_2024_001",
-                              contact_type=ContactType.radio,
+                              contact_type=ContactType.telepathic,
                               location="Area 51, Nevada",
                               signal_strength=8.5,
                               duration_minutes=45,

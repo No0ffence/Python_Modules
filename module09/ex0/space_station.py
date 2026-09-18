@@ -3,7 +3,7 @@ from datetime import datetime
 
 
 class SpaceStation(BaseModel):
-    station_id: str = Field(min_length=1, max_length=10)
+    station_id: str = Field(min_length=3, max_length=10)
     name: str = Field(min_length=1, max_length=50)
     crew_size: int = Field(ge=1, le=20)
     power_level: float = Field(ge=0.0, le=100.0)
@@ -42,9 +42,9 @@ Space Station Data Validation
 ========================================
 Expected validation error:""")
     try:
-        station2 = SpaceStation(station_id="ISS001455654546",
+        station2 = SpaceStation(station_id="ISS002",
                                 name="International Space Station",
-                                crew_size=6,
+                                crew_size=21,
                                 power_level=85.5,
                                 oxygen_level=92.3,
                                 last_maintenance=datetime.now())
