@@ -27,3 +27,4 @@ The projects are focused not only on making the code work, but also on understan
 * Linux
 * Poetry / `venv`
 * MyPy
+* Functional programming
