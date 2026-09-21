@@ -1,5 +1,3 @@
-from typing import Callable
-
 # spells
 heal = lambda target, power: f"Heal restores {target} for {power} HP"
 fireball = lambda target, power: f"Fireball hits {target} for {power} HP"
