@@ -1,7 +1,19 @@
 # spells
-heal = lambda target, power: f"Heal restores {target} for {power} HP"
-fireball = lambda target, power: f"Fireball hits {target} for {power} HP"
-condition = lambda target, power: True if power > 100 else False
+# heal = lambda target, power: f"Heal restores {target} for {power} HP"
+# fireball = lambda target, power: f"Fireball hits {target} for {power} HP"
+# condition = lambda target, power: True if power > 100 else False
+
+def heal(target, power):
+    return f"Heal restores {target} for {power} HP"
+
+
+def fireball(target, power):
+    return f"Fireball hits {target} for {power} HP"
+
+
+def condition(target, power):
+    return True if power > 100 else False
+
 
 # aga
 # 1

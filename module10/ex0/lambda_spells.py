@@ -1,16 +1,16 @@
 artifact_sorter = (
-    lambda artifacts: sorted(artifacts,
-                             key=lambda artifact:
-                             artifact["power"],
-                             reverse=True))
+    lambda artifacts: list(sorted(artifacts,
+                                  key=lambda artifact:
+                                  artifact["power"],
+                                  reverse=True)))
 
 power_filter = (
-    lambda mages, min_power: filter(lambda mage:
-                                    mage["power"] >= min_power,
-                                    mages))
+    lambda mages, min_power: list(filter(lambda mage:
+                                         mage["power"] >= min_power,
+                                         mages)))
 
 spell_transformer = (
-    lambda spells: map(lambda spell: "*" + spell + "*", spells))
+    lambda spells: list(map(lambda spell: "* " + spell + " *", spells)))
 
 mage_stats = (
     lambda mages: {
@@ -42,12 +42,12 @@ sorted_arts = artifact_sorter(artifacts)
 print(*(f'{art["name"]} ({art["power"]} power)' for art in sorted_arts),
       sep=" comes before ")
 
-print("\nTesting power_filter...")
-print(list(power_filter(artifacts, 100)))
+# print("\nTesting power_filter...")
+# print(list(power_filter(artifacts, 100)))
 
 print("\nTesting spell_transformer...")
 updated_spells = spell_transformer(spells)
 print(*updated_spells)
 
-print("\nTesting mage_stats...")
-print(mage_stats(mages))
+# print("\nTesting mage_stats...")
+# print(mage_stats(mages))
